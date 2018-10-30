@@ -48,7 +48,8 @@
 															<option value="${dmdb.id}">${dmdb.name}</option>
 														</c:forEach>
 													</select> <label>配送方法</label>
-												</div>
+
+											</div>
 											</td>
 										</tr>
 									</tbody>

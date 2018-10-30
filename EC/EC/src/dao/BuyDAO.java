@@ -71,6 +71,8 @@ public class BuyDAO {
 
 			st = con.prepareStatement(
 					"SELECT * FROM t_buy"
+					
+					
 							+ " JOIN m_delivery_method"
 							+ " ON t_buy.delivery_method_id = m_delivery_method.id"
 							+ " WHERE t_buy.id = ?");

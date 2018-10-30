@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import base.DBManager;
 import beans.BuyDetailDataBeans;
 import beans.ItemDataBeans;
+import beans.UserBuyDataBeans;
 
 /**
  *
@@ -130,5 +131,39 @@ public class BuyDetailDAO {
 			}
 		}
 	}
+	
+	
+	/*購入情報の取得 */
+	
+	public static ArrayList<UserBuyDataBeans> getUserBuyDataBeansListByBuyId(int buyId) throws SQLException {
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			con = DBManager.getConnection();
 
+			st = con.prepareStatement("SELECT * FROM t_buy_detail WHERE buy_id = ?");
+			st.setInt(1, buyId);
+
+			ResultSet rs = st.executeQuery();
+			ArrayList<UserBuyDataBeans> UserbuyDetailList = new ArrayList<UserBuyDataBeans>();
+
+			while (rs.next()) {
+				UserBuyDataBeans bddb = new UserBuyDataBeans();
+				bddb.setId(rs.getInt("id"));
+				bddb.set(rs.getInt("buy_id"));
+				bddb.setItemId(rs.getInt("item_id"));
+				UserbuyDetailList.add(bddb);
+			}
+
+			System.out.println("searching BuyDataBeansList by BuyID has been completed");
+			return buyDetailList;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new SQLException(e);
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
 }
