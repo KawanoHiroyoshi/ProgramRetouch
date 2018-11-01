@@ -8,11 +8,11 @@ import java.util.Date;
  * @author d-yamaguchi
  *
  */
-public class UserBuyDataBeans implements Serializable {
+public class UserBuyItemDataBeans2 implements Serializable {
 	private int DelivertMethodId;
 	private Date CreateDate;
-	private int Total_Price;
-	private String Delivery_Method;
+	private int Price;
+	private String Item_Date;
 	private int id;
 
 
@@ -38,12 +38,9 @@ public class UserBuyDataBeans implements Serializable {
 	}
 
 	public int getTotal_Price() {
-		return Total_Price;
+		return Price;
 	}
 
-	public void setTotal_Price(int total_Price) {
-		Total_Price = total_Price;
-	}
 
 	public Date getCreateDate() {
 		return CreateDate;
@@ -53,12 +50,22 @@ public class UserBuyDataBeans implements Serializable {
 		CreateDate = createDate;
 	}
 
-	public String getDelivery_Method() {
-		return Delivery_Method;
+	public int getPrice() {
+		return Price;
 	}
 
-	public void setDelivery_Method(String delivery_Method) {
-		Delivery_Method = delivery_Method;
+	public void setPrice(int price) {
+		Price = price;
 	}
+
+	public String getItem_Date() {
+		return Item_Date;
+	}
+
+	public void setItem_Date(String item_Date) {
+		Item_Date = item_Date;
+	}
+
+
 }
 

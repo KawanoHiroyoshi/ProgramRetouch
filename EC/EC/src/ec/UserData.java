@@ -1,7 +1,7 @@
 package ec;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,9 +34,8 @@ public class UserData extends HttpServlet {
 			int userId = (int) session.getAttribute("userId");
 			// 更新確認画面から戻ってきた場合Sessionから取得。それ以外はuserIdでユーザーを取得
 			UserDataBeans udb = session.getAttribute("returnUDB") == null ? UserDAO.getUserDataBeansByUserId(userId) : (UserDataBeans) EcHelper.cutSessionAttribute(session, "returnUDB");
-			
-			ArrayList<UserBuyDataBeans> ubdb =  BuyDetailDAO.getUserBuyDataBeansListByBuyId(userId);
 
+			List<UserBuyDataBeans> ubdb =  BuyDetailDAO.getUserBuyDataBeansListByBuyId(userId);
 
 			// 入力された内容に誤りがあったとき等に表示するエラーメッセージを格納する
 			String validationMessage = (String) EcHelper.cutSessionAttribute(session, "validationMessage");
@@ -44,7 +43,7 @@ public class UserData extends HttpServlet {
 
 			request.setAttribute("validationMessage", validationMessage);
 			request.setAttribute("udb", udb);
-
+			request.setAttribute("ubdb", ubdb);
 			request.getRequestDispatcher(EcHelper.USER_DATA_PAGE).forward(request, response);
 
 		} catch (Exception e) {

@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import base.DBManager;
 import beans.BuyDetailDataBeans;
 import beans.ItemDataBeans;
 import beans.UserBuyDataBeans;
+import beans.UserBuyItemDataBeans;
 
 /**
  *
@@ -131,32 +133,36 @@ public class BuyDetailDAO {
 			}
 		}
 	}
-	
-	
+
+
 	/*購入情報の取得 */
-	
-	public static ArrayList<UserBuyDataBeans> getUserBuyDataBeansListByBuyId(int buyId) throws SQLException {
+
+	public static List<UserBuyDataBeans> getUserBuyDataBeansListByBuyId(int userId) throws SQLException {
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
 			con = DBManager.getConnection();
 
-			st = con.prepareStatement("SELECT * FROM t_buy_detail WHERE buy_id = ?");
-			st.setInt(1, buyId);
+			st = con.prepareStatement("SELECT * FROM t_buy JOIN m_delivery_method ON (m_delivery_method.id = delivery_method_id) WHERE user_id = ?");
+			st.setInt(1, userId);
 
 			ResultSet rs = st.executeQuery();
-			ArrayList<UserBuyDataBeans> UserbuyDetailList = new ArrayList<UserBuyDataBeans>();
+			List<UserBuyDataBeans> UserbuyDetailList = new ArrayList<UserBuyDataBeans>();
 
 			while (rs.next()) {
-				UserBuyDataBeans bddb = new UserBuyDataBeans();
-				bddb.setId(rs.getInt("id"));
-				bddb.set(rs.getInt("buy_id"));
-				bddb.setItemId(rs.getInt("item_id"));
-				UserbuyDetailList.add(bddb);
+				UserBuyDataBeans ubdb = new UserBuyDataBeans();
+				ubdb.setId(rs.getInt("id"));
+				ubdb.setCreateDate(rs.getDate("create_date"));
+				ubdb.setTotal_Price(rs.getInt("total_price"));
+				ubdb.setDelivery_Method(rs.getString("name"));
+
+
+				UserbuyDetailList.add(ubdb);
 			}
 
-			System.out.println("searching BuyDataBeansList by BuyID has been completed");
-			return buyDetailList;
+
+			System.out.println("searching UserbuyDataBeansList by BuyID has been completed");
+			return UserbuyDetailList;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			throw new SQLException(e);
@@ -166,4 +172,44 @@ public class BuyDetailDAO {
 			}
 		}
 	}
+	public static List<UserBuyItemDataBeans> getUserBuyItemDataBeansListByBuyId(int s_id) throws SQLException {
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			con = DBManager.getConnection();
+
+			st = con.prepareStatement("SELECT * FROM t_buy_detail INNER JOIN m_Item ON (m_Item.id = t_buy_detail.item_id) WHERE buy_id = ?");
+			st.setInt(1, s_id);
+
+			ResultSet rs = st.executeQuery();
+			List<UserBuyItemDataBeans> UserBuyItemDataList = new ArrayList<UserBuyItemDataBeans>();
+
+			while (rs.next()) {
+				UserBuyItemDataBeans ubdb2 = new UserBuyItemDataBeans();
+				ubdb2.setId(rs.getInt("id"));
+				ubdb2.setPrice(rs.getInt("price"));
+				ubdb2.setItem_Date(rs.getString("name"));
+
+
+				UserBuyItemDataList.add(ubdb2);
+			}
+
+
+			System.out.println("searching UserbuyDataBeansList by BuyID has been completed");
+			return UserBuyItemDataList;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new SQLException(e);
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
+
+
+
+
+
+
 }

@@ -33,9 +33,9 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td class="center">1234年56月78日90時12分</td>
-									<td class="center">サンプル</td>
-									<td class="center">123456789円</td>
+									<td class="center">${ubdb[0].createDate}</td>
+									<td class="center">${ubdb[0].delivery_Method}</td>
+									<td class="center">${ubdb[0].total_Price}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -57,20 +57,20 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td class="center">サンプル商品名1</td>
-									<td class="center">111111111円</td>
+									<td class="center">${ubdb2[0].item_Date}</td>
+									<td class="center">${ubdb2[0].price}</td>
 								</tr>
 								<tr>
-									<td class="center">サンプル商品名2</td>
-									<td class="center">222222222円</td>
+									<td class="center">${ubdb2[1].item_Date}</td>
+									<td class="center">${ubdb2[1].price}</td>
 								</tr>
 								<tr>
-									<td class="center">サンプル商品名3</td>
-									<td class="center">333333333円</td>
+									<td class="center">${ubdb2[2].item_Date}</td>
+									<td class="center">${ubdb2[2].price}</td>
 								</tr>
 								<tr>
-									<td class="center">サンプル</td>
-									<td class="center">123456789円</td>
+									<td class="center">${ubdb2[3].item_Date}</td>
+									<td class="center">${ubdb2[3].price}</td>
 								</tr>
 							</tbody>
 						</table>
