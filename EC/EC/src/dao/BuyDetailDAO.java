@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,7 +144,7 @@ public class BuyDetailDAO {
 		try {
 			con = DBManager.getConnection();
 
-			st = con.prepareStatement("SELECT * FROM t_buy JOIN m_delivery_method ON (m_delivery_method.id = delivery_method_id) WHERE user_id = ?");
+			st = con.prepareStatement("SELECT * FROM t_buy JOIN m_delivery_method ON (m_delivery_method.id = delivery_method_id) WHERE user_id = ? ORDER BY create_date DESC");
 			st.setInt(1, userId);
 
 			ResultSet rs = st.executeQuery();
@@ -152,10 +153,11 @@ public class BuyDetailDAO {
 			while (rs.next()) {
 				UserBuyDataBeans ubdb = new UserBuyDataBeans();
 				ubdb.setId(rs.getInt("id"));
-				ubdb.setCreateDate(rs.getDate("create_date"));
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy'年'MM'月'dd'日'HH'時'mm'分'");
+				ubdb.setCreateDate(sdf.format(rs.getTimestamp("create_date")));
 				ubdb.setTotal_Price(rs.getInt("total_price"));
 				ubdb.setDelivery_Method(rs.getString("name"));
-
+				ubdb.setPrice(rs.getInt("price"));
 
 				UserbuyDetailList.add(ubdb);
 			}
@@ -172,23 +174,27 @@ public class BuyDetailDAO {
 			}
 		}
 	}
-	public static List<UserBuyItemDataBeans> getUserBuyItemDataBeansListByBuyId(int s_id) throws SQLException {
+	public static List<UserBuyItemDataBeans> getUserBuyItemDataBeansListByBuyId(int userId) throws SQLException {
 		Connection con = null;
 		PreparedStatement st = null;
 		try {
 			con = DBManager.getConnection();
 
-			st = con.prepareStatement("SELECT * FROM t_buy_detail INNER JOIN m_Item ON (m_Item.id = t_buy_detail.item_id) WHERE buy_id = ?");
-			st.setInt(1, s_id);
+
+
+			st = con.prepareStatement("SELECT * FROM t_buy  INNER JOIN t_buy_detail ON (t_buy.id = t_buy_detail.buy_id) INNER JOIN  m_Item ON (m_Item.id = item_id) INNER JOIN  m_delivery_method ON ( m_delivery_method.id = delivery_method_id) WHERE buy_id = ? ORDER BY create_date DESC");
+			st.setInt(1, userId);
 
 			ResultSet rs = st.executeQuery();
 			List<UserBuyItemDataBeans> UserBuyItemDataList = new ArrayList<UserBuyItemDataBeans>();
 
 			while (rs.next()) {
 				UserBuyItemDataBeans ubdb2 = new UserBuyItemDataBeans();
-				ubdb2.setId(rs.getInt("id"));
-				ubdb2.setPrice(rs.getInt("price"));
-				ubdb2.setItem_Date(rs.getString("name"));
+				ubdb2.setId(rs.getInt("buy_id"));
+				ubdb2.setPrice(rs.getInt("m_Item.price"));
+				ubdb2.setItem_Date(rs.getString("m_Item.name"));
+				ubdb2.setDelivertMethod(rs.getString("m_delivery_method.name"));
+				ubdb2.setPrice_1(rs.getInt("m_delivery_method.price"));
 
 
 				UserBuyItemDataList.add(ubdb2);

@@ -76,7 +76,7 @@
 
 							<tbody>
 							<tr>
-									<td class="center"><a href="UserBuyHistoryDetail?buy_id=<"class="btn-floating btn waves-effect waves-light "> <i class="material-icons">details</i></a></td>
+									<td class="center"><a href="UserBuyHistoryDetail?id=${ubdb[0].id}&P=0" class="btn-floating btn waves-effect waves-light "> <i class="material-icons">details</i></a></td>
 									<td class="center">${ubdb[0].createDate}</td>
 									<td class="center">${ubdb[0].delivery_Method}</td>
 									<td class="center">${ubdb[0].total_Price}</td>
@@ -85,17 +85,15 @@
 								<c:forEach  begin="2" end="${ubdb.size()}" varStatus="status" >
 								<tr>
 
-									<td class="center"><a href="UserBuyHistoryDetail?buy_id=<"class="btn-floating btn waves-effect waves-light "> <i class="material-icons">details</i></a></td>
+									<td class="center"><a href="UserBuyHistoryDetail?id=${ubdb[status.count].id}&P=${status.count}" class="btn-floating btn waves-effect waves-light "> <i class="material-icons">details</i></a></td>
 									<td class="center">${ubdb[status.count].createDate}</td>
 									<td class="center">${ubdb[status.count].delivery_Method}</td>
 									<td class="center">${ubdb[status.count].total_Price}</td>
 
 
-
 								</tr>
 
 								</c:forEach>
-
 
 							</tbody>
 

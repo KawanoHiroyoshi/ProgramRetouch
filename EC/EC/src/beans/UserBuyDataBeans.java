@@ -1,7 +1,6 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * ユーザー
@@ -10,10 +9,11 @@ import java.util.Date;
  */
 public class UserBuyDataBeans implements Serializable {
 	private int DelivertMethodId;
-	private Date CreateDate;
+	private String CreateDate;
 	private int Total_Price;
 	private String Delivery_Method;
 	private int id;
+	private int price;
 
 
 
@@ -45,11 +45,11 @@ public class UserBuyDataBeans implements Serializable {
 		Total_Price = total_Price;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return CreateDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		CreateDate = createDate;
 	}
 
@@ -60,5 +60,14 @@ public class UserBuyDataBeans implements Serializable {
 	public void setDelivery_Method(String delivery_Method) {
 		Delivery_Method = delivery_Method;
 	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
 }
 

@@ -1,8 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-
-
-<%@	page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,9 +31,9 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td class="center">${ubdb[0].createDate}</td>
-									<td class="center">${ubdb[0].delivery_Method}</td>
-									<td class="center">${ubdb[0].total_Price}</td>
+									<td class="center""src/beans/UserBuyItemDataBeans2.java">${ubdb[P].createDate}</td>
+									<td class="center">${ubdb[P].delivery_Method}</td>
+									<td class="center">${ubdb[P].total_Price}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -43,6 +41,7 @@
 				</div>
 			</div>
 		</div>
+
 		<!-- 詳細 -->
 		<div class="row">
 			<div class="col s10 offset-s1">
@@ -55,30 +54,36 @@
 									<th class="center" style="width: 20%">単価</th>
 								</tr>
 							</thead>
+
 							<tbody>
 								<tr>
 									<td class="center">${ubdb2[0].item_Date}</td>
 									<td class="center">${ubdb2[0].price}</td>
 								</tr>
+									<c:if test = "${ubdb2[1].item_Date != null}">
+								<c:forEach  begin="2" end="${ubdb2.size()}" varStatus="status1" >
 								<tr>
-									<td class="center">${ubdb2[1].item_Date}</td>
-									<td class="center">${ubdb2[1].price}</td>
+									<td class="center">${ubdb2[status1.count].item_Date}</td>
+									<td class="center">${ubdb2[status1.count].price}</td>
 								</tr>
+								</c:forEach>
+								</c:if>
 								<tr>
-									<td class="center">${ubdb2[2].item_Date}</td>
-									<td class="center">${ubdb2[2].price}</td>
+								<td class="center">${ubdb2[0].delivertMethod}</td>
+								<td class="center">${ubdb2[0].price_1}</td>
 								</tr>
-								<tr>
-									<td class="center">${ubdb2[3].item_Date}</td>
-									<td class="center">${ubdb2[3].price}</td>
-								</tr>
+
+
+
 							</tbody>
+
 						</table>
+
 					</div>
 				</div>
 			</div>
+			</div>
 		</div>
-	</div>
 	<jsp:include page="/baselayout/footer.jsp" />
 </body>
 </html>

@@ -9,22 +9,16 @@ import java.util.Date;
  *
  */
 public class UserBuyItemDataBeans implements Serializable {
-	private int DelivertMethodId;
+	private String DelivertMethod;
 	private Date CreateDate;
 	private int Price;
+	private int Price_1;
 	private String Item_Date;
 	private int id;
 
 
 
 
-	public int getDelivertMethodId() {
-		return DelivertMethodId;
-	}
-
-	public void setDelivertMethodId(int delivertMethodId) {
-		DelivertMethodId = delivertMethodId;
-	}
 
 
 
@@ -64,6 +58,22 @@ public class UserBuyItemDataBeans implements Serializable {
 
 	public void setItem_Date(String item_Date) {
 		Item_Date = item_Date;
+	}
+
+	public String getDelivertMethod() {
+		return DelivertMethod;
+	}
+
+	public void setDelivertMethod(String delivertMethod) {
+		DelivertMethod = delivertMethod;
+	}
+
+	public int getPrice_1() {
+		return Price_1;
+	}
+
+	public void setPrice_1(int price_1) {
+		Price_1 = price_1;
 	}
 
 
